@@ -50,8 +50,25 @@
   body::before, body::after {
     content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
   }
-  body::before { background: radial-gradient(58% 48% at 70% 18%, #2D1B47cc 0%, transparent 62%); z-index: 0; }
-  body::after  { background: radial-gradient(52% 44% at 18% 88%, #1A0D2Eaa 0%, transparent 66%); z-index: 0; }
+
+  /* Photographic bed. The source card carries its own wordmark and headline,
+     so it is scrimmed hard enough that the baked type reads as bokeh rather
+     than competing with the page's own copy. Anchored left of centre so the
+     figure survives the portrait crop on phones. */
+  #bg {
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url("bg-small.jpg");
+    background-size: cover;
+    background-position: center center;
+    opacity: .62;
+  }
+  @media (min-width: 900px) { #bg { background-image: url("bg.jpg"); } }
+  #scrim {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      linear-gradient(to bottom, rgba(24,16,30,.62) 0%, rgba(24,16,30,.80) 42%, rgba(24,16,30,.93) 100%),
+      radial-gradient(70% 55% at 50% 42%, rgba(24,16,30,.35) 0%, rgba(24,16,30,.85) 100%);
+  }
 
   /* drifting petals sit above the glows, below the content */
   #petals {
@@ -160,6 +177,8 @@
 </style>
 </head>
 <body>
+<div id="bg" aria-hidden="true"></div>
+<div id="scrim" aria-hidden="true"></div>
 <canvas id="petals" aria-hidden="true"></canvas>
 <main>
   <img class="logo" src="logo.png" alt="Real Singles" />
