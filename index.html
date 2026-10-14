@@ -319,7 +319,7 @@
   //   - Tally / Getform / your own serverless function
   // Leave empty and the form will tell you it is not connected rather than
   // silently dropping a signup on the floor.
-  var ENDPOINT = "";
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbzAatzNpXdsXaVn1sp2tA9veO9QELsL-JCXdnJPhDrKFnJ_IQbn_FP42ZJoWnRMj71SuA/exec";
   // ---------------------------------------------------------------------------
 
   var form = document.getElementById("f");
@@ -351,7 +351,7 @@
 
     fetch(ENDPOINT, {
       method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({
         name: name,
         email: email,
