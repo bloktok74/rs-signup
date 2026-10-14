@@ -11,13 +11,18 @@
 <meta property="og:description" content="Someone worth meeting is coming. Join the early access list." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://joinrealsingles.com/" />
-<meta property="og:image" content="https://joinrealsingles.com/og.png" />
+<meta property="og:image" content="https://joinrealsingles.com/og.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 
 <link rel="icon" href="favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="preload" as="style"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;600&display=swap" />
+<link rel="stylesheet" media="print" onload="this.media='all';this.onload=null"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;600&display=swap" />
+<noscript><link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;600&display=swap" /></noscript>
 
 <style>
   /* Dark Premium, matching the showcase video. Tokens from BRAND.md section 3. */
@@ -41,14 +46,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* no justify-content: centring overflowing flex content makes the top
+       unreachable on short viewports */
     padding: 40px 20px calc(40px + env(safe-area-inset-bottom));
     position: relative;
     overflow-x: hidden;
-  }
-  /* warm bloom, same as the video backdrop */
-  body::before, body::after {
-    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
   }
 
   /* Photographic bed. The source card carries its own wordmark and headline,
@@ -76,15 +78,17 @@
     pointer-events: none; display: block;
   }
 
-  main { position: relative; z-index: 2; width: 100%; max-width: 520px; text-align: center; }
+  main { position: relative; z-index: 2; width: 100%; max-width: 520px; text-align: center; margin-top: auto; }
 
   /* content settles in rather than snapping on */
   main > *, footer { animation: rise .9s cubic-bezier(.22,.8,.3,1) both; }
-  main > *:nth-child(2) { animation-delay: .06s; }
-  main > *:nth-child(3) { animation-delay: .12s; }
-  main > *:nth-child(4) { animation-delay: .18s; }
-  main > *:nth-child(5) { animation-delay: .24s; }
-  footer { animation-delay: .3s; }
+  main > *:nth-child(2) { animation-delay: .05s; }
+  main > *:nth-child(3) { animation-delay: .10s; }
+  main > *:nth-child(4) { animation-delay: .16s; }
+  main > *:nth-child(5) { animation-delay: .22s; }
+  main > *:nth-child(6) { animation-delay: .22s; }
+  main > *:nth-child(7) { animation-delay: .30s; }
+  footer { animation-delay: .36s; }
   @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
   @media (prefers-reduced-motion: reduce) {
@@ -92,7 +96,7 @@
     #petals { display: none; }
   }
 
-  .logo { width: 190px; height: auto; margin: 0 auto 30px; display: block; }
+  .logo { width: clamp(132px, 34vw, 190px); height: auto; margin: 0 auto 22px; display: block; }
 
   h1 {
     font-family: "Playfair Display", Georgia, serif;
@@ -103,7 +107,9 @@
     letter-spacing: -0.01em;
   }
   /* the signature coral italic on one word */
-  h1 em { font-style: italic; color: var(--coral); }
+  /* weight must be stated: italic 700 is now loaded, and inheriting avoided
+     the browser synthesising a fake bold from the 600 face */
+  h1 em { font-style: italic; font-weight: 700; color: var(--coral); }
 
   .sub {
     color: var(--mute);
@@ -170,8 +176,9 @@
 
   footer {
     position: relative; z-index: 1;
-    margin-top: 44px; text-align: center;
-    font-size: 12px; color: #6B5B74; line-height: 1.7;
+    margin: 40px 0 auto; text-align: center;
+    /* #6B5B74 was 2.98:1 on night plum - below AA */
+    font-size: 12px; color: var(--mute); opacity: .8; line-height: 1.7;
   }
   .rule { width: 54px; height: 1px; background: var(--gold); opacity: .55; margin: 0 auto 22px; }
 </style>
@@ -181,7 +188,12 @@
 <div id="scrim" aria-hidden="true"></div>
 <canvas id="petals" aria-hidden="true"></canvas>
 <main>
-  <img class="logo" src="logo.png" alt="Real Singles" />
+  <img class="logo"
+       src="logo-380.webp"
+       srcset="logo-264.webp 264w, logo-380.webp 380w"
+       sizes="(max-width: 600px) 132px, 190px"
+       width="1076" height="857"
+       alt="Real Singles" fetchpriority="high" />
   <div class="rule"></div>
 
   <h1>Someone worth meeting is <em>coming</em>.</h1>
