@@ -381,11 +381,34 @@
     })
       .then(function (r) {
         if (!r.ok) throw new Error("HTTP " + r.status);
+        // Read the body, don't just trust the status. Apps Script answers 200
+        // even when it rejects a row, so status alone would show "You're on
+        // the list" to someone whose signup was never saved.
+        return r.text().then(function (txt) {
+          var parsed = null;
+          try { parsed = JSON.parse(txt); } catch (e) { /* unreadable */ }
+          if (parsed && parsed.ok === true) return "saved";
+          if (parsed && parsed.ok === false) throw new Error(parsed.error || "rejected");
+          // Response came back but could not be read (CORS on the redirect).
+          // The POST did reach the script, so treat it as sent rather than
+          // telling someone to retry a signup that probably worked.
+          return "unverified";
+        });
+      })
+      .then(function (outcome) {
+        if (outcome === "unverified" && window.console) {
+          console.warn("signup sent but response was unreadable");
+        }
         document.body.classList.add("sent");
       })
-      .catch(function () {
+      .catch(function (err) {
         btn.disabled = false;
-        say("Something went wrong. Please try again.", true);
+        say(
+          String(err && err.message) === "rejected"
+            ? "That did not look right — please check your details."
+            : "Something went wrong. Please try again.",
+          true
+        );
       });
   });
 })();
