@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Real Singles — Early Access</title>
+<meta name="description" content="Join the early access list for Real Singles, a Southern California dating app for meeting verified singles in real life." />
+<meta name="theme-color" content="#18101E" />
+
+<meta property="og:title" content="Real Singles — Early Access" />
+<meta property="og:description" content="Someone worth meeting is coming. Join the early access list." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://joinrealsingles.com/" />
+<meta property="og:image" content="https://joinrealsingles.com/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="icon" href="favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  /* Dark Premium, matching the showcase video. Tokens from BRAND.md section 3. */
+  :root {
+    --night: #18101E;
+    --deep: #1A0D2E;
+    --glass: #2D1B47;
+    --coral: #E57A7F;
+    --gold: #D8A850;
+    --cream: #F2E2D1;
+    --mute: #9C8AA6;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--night);
+    color: var(--cream);
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px calc(40px + env(safe-area-inset-bottom));
+    position: relative;
+    overflow-x: hidden;
+  }
+  /* warm bloom, same as the video backdrop */
+  body::before, body::after {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  }
+  body::before { background: radial-gradient(58% 48% at 70% 18%, #2D1B47cc 0%, transparent 62%); z-index: 0; }
+  body::after  { background: radial-gradient(52% 44% at 18% 88%, #1A0D2Eaa 0%, transparent 66%); z-index: 0; }
+
+  /* drifting petals sit above the glows, below the content */
+  #petals {
+    position: fixed; inset: 0; z-index: 1;
+    pointer-events: none; display: block;
+  }
+
+  main { position: relative; z-index: 2; width: 100%; max-width: 520px; text-align: center; }
+
+  /* content settles in rather than snapping on */
+  main > *, footer { animation: rise .9s cubic-bezier(.22,.8,.3,1) both; }
+  main > *:nth-child(2) { animation-delay: .06s; }
+  main > *:nth-child(3) { animation-delay: .12s; }
+  main > *:nth-child(4) { animation-delay: .18s; }
+  main > *:nth-child(5) { animation-delay: .24s; }
+  footer { animation-delay: .3s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    main > *, footer { animation: none; }
+    #petals { display: none; }
+  }
+
+  .logo { width: 190px; height: auto; margin: 0 auto 30px; display: block; }
+
+  h1 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(34px, 8.5vw, 52px);
+    line-height: 1.14;
+    margin: 0 0 16px;
+    letter-spacing: -0.01em;
+  }
+  /* the signature coral italic on one word */
+  h1 em { font-style: italic; color: var(--coral); }
+
+  .sub {
+    color: var(--mute);
+    font-size: clamp(15px, 4vw, 18px);
+    line-height: 1.6;
+    margin: 0 auto 34px;
+    max-width: 420px;
+  }
+
+  form { display: grid; gap: 12px; text-align: left; }
+  label { font-size: 13px; font-weight: 500; color: var(--mute); letter-spacing: 0.04em; }
+  input {
+    width: 100%;
+    padding: 15px 18px;
+    font-size: 16px; /* 16px stops iOS zooming the page on focus */
+    font-family: inherit;
+    color: var(--cream);
+    background: rgba(255,255,255,0.055);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 12px;
+    transition: border-color .18s, background .18s;
+  }
+  input::placeholder { color: #7B6B85; }
+  input:focus { outline: none; border-color: var(--coral); background: rgba(255,255,255,0.085); }
+  input:user-invalid { border-color: #C9566B; }
+
+  button {
+    margin-top: 6px;
+    padding: 16px 20px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2A1422;
+    background: linear-gradient(135deg, #EDA0A3, var(--coral));
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform .14s, box-shadow .18s, opacity .18s;
+    box-shadow: 0 10px 30px rgba(229,122,127,0.28);
+  }
+  button:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 14px 38px rgba(229,122,127,0.36); }
+  button:disabled { opacity: .6; cursor: default; }
+
+  .note {
+    margin-top: 22px;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: #7B6B85;
+  }
+  .note a { color: var(--mute); }
+
+  .status { margin-top: 16px; font-size: 14.5px; min-height: 22px; }
+  .status.err { color: #F0A0A8; }
+
+  /* success state replaces the form */
+  .done { display: none; }
+  body.sent form, body.sent .note { display: none; }
+  body.sent .done { display: block; }
+  .done h2 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 600; font-size: 28px; margin: 0 0 10px;
+  }
+  .done p { color: var(--mute); font-size: 16px; line-height: 1.6; margin: 0; }
+
+  footer {
+    position: relative; z-index: 1;
+    margin-top: 44px; text-align: center;
+    font-size: 12px; color: #6B5B74; line-height: 1.7;
+  }
+  .rule { width: 54px; height: 1px; background: var(--gold); opacity: .55; margin: 0 auto 22px; }
+</style>
+</head>
+<body>
+<canvas id="petals" aria-hidden="true"></canvas>
+<main>
+  <img class="logo" src="logo.png" alt="Real Singles" />
+  <div class="rule"></div>
+
+  <h1>Someone worth meeting is <em>coming</em>.</h1>
+  <p class="sub">
+    A Southern California dating app for meeting verified singles in real life.
+    Join the early access list and we will let you know the moment it opens.
+  </p>
+
+  <form id="f" novalidate>
+    <div>
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" autocomplete="given-name"
+             placeholder="Your first name" required maxlength="80" />
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="email"
+             inputmode="email" placeholder="you@example.com" required maxlength="140" />
+    </div>
+    <button id="go" type="submit">Join the early access list</button>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+  </form>
+
+  <div class="done" id="done">
+    <h2>You're on the list.</h2>
+    <p>We will email you when early access opens. No spam, and you can ask to be removed at any time.</p>
+  </div>
+
+  <p class="note">
+    This is an early access list, not an app download &mdash; Real Singles is not yet
+    released. We use your name and email only to tell you when it opens, and we do
+    not sell your data. To be removed, reply to any email from us.
+  </p>
+</main>
+
+<footer>
+  Real Singles &middot; Wingman LLC &middot; Southern California<br />
+  <a href="privacy.html">Privacy</a>
+</footer>
+
+<script>
+/* Drifting petals.
+   An original shape - two mirrored beziers forming an almond - rather than any
+   traced artwork. Each petal falls slowly, sways on a sine (the wind), rotates,
+   and flutters by squashing horizontally as if turning edge-on. The flutter is
+   what stops it reading as confetti.
+   Kept deliberately sparse: this is background texture, not a feature. */
+(function () {
+  var cv = document.getElementById("petals");
+  if (!cv) return;
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  var ctx = cv.getContext("2d");
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var w = 0, h = 0, petals = [], raf = 0, last = 0;
+
+  // warm, low-contrast - they should be felt more than seen
+  var TONES = ["229,122,127", "216,168,80", "242,226,209"];
+
+  var rnd = function (a, b) { return a + Math.random() * (b - a); };
+
+  var make = function (seedTop) {
+    return {
+      x: rnd(-0.05, 1.05) * w,
+      y: seedTop ? rnd(-0.3, 1.1) * h : rnd(-0.25, -0.05) * h,
+      size: rnd(9, 21) * dpr,
+      vy: rnd(10, 26) * dpr,          // px per second
+      sway: rnd(18, 54) * dpr,
+      swaySpeed: rnd(0.16, 0.42),
+      phase: rnd(0, Math.PI * 2),
+      rot: rnd(0, Math.PI * 2),
+      vrot: rnd(-0.28, 0.28),
+      flutter: rnd(0.5, 1.15),
+      tone: TONES[(Math.random() * TONES.length) | 0],
+      alpha: rnd(0.18, 0.44)
+    };
+  };
+
+  var resize = function () {
+    w = cv.width = Math.floor(window.innerWidth * dpr);
+    h = cv.height = Math.floor(window.innerHeight * dpr);
+    cv.style.width = window.innerWidth + "px";
+    cv.style.height = window.innerHeight + "px";
+    var count = window.innerWidth < 600 ? 10 : 17;
+    petals = [];
+    for (var i = 0; i < count; i++) petals.push(make(true));
+  };
+
+  var drawPetal = function (p, t) {
+    var s = p.size;
+    // squash horizontally as it turns - the edge-on flutter
+    var turn = Math.abs(Math.cos(t * p.flutter + p.phase));
+    var sx = 0.26 + 0.74 * turn;
+
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.scale(sx, 1);
+    ctx.beginPath();
+    ctx.moveTo(0, -s);
+    ctx.bezierCurveTo(s * 0.92, -s * 0.45, s * 0.72, s * 0.55, 0, s);
+    ctx.bezierCurveTo(-s * 0.72, s * 0.55, -s * 0.92, -s * 0.45, 0, -s);
+    ctx.closePath();
+    var a = p.alpha * (0.45 + 0.55 * turn);
+    // soft falloff from the spine outward, so each petal has a lit edge
+    var grad = ctx.createLinearGradient(-s * 0.9, 0, s * 0.9, 0);
+    grad.addColorStop(0, "rgba(" + p.tone + ",0)");
+    grad.addColorStop(0.5, "rgba(" + p.tone + "," + a.toFixed(3) + ")");
+    grad.addColorStop(1, "rgba(" + p.tone + ",0)");
+    ctx.fillStyle = grad;
+    ctx.fill();
+    ctx.restore();
+  };
+
+  var frame = function (now) {
+    var t = now / 1000;
+    var dt = last ? Math.min((now - last) / 1000, 0.05) : 0.016;
+    last = now;
+
+    ctx.clearRect(0, 0, w, h);
+    ctx.globalCompositeOperation = "lighter"; // petals add light, never darken
+    for (var i = 0; i < petals.length; i++) {
+      var p = petals[i];
+      p.y += p.vy * dt;
+      p.rot += p.vrot * dt;
+      p.x += Math.sin(t * p.swaySpeed + p.phase) * p.sway * dt;
+
+      if (p.y - p.size > h) petals[i] = make(false);
+      drawPetal(p, t);
+    }
+    raf = requestAnimationFrame(frame);
+  };
+
+  var start = function () { if (!raf) { last = 0; raf = requestAnimationFrame(frame); } };
+  var stop = function () { cancelAnimationFrame(raf); raf = 0; };
+
+  window.addEventListener("resize", resize, { passive: true });
+  // don't burn a phone battery in a background tab
+  document.addEventListener("visibilitychange", function () {
+    document.hidden ? stop() : start();
+  });
+
+  resize();
+  start();
+})();
+</script>
+
+<script>
+(function () {
+  // ---------------------------------------------------------------------------
+  // SET THIS before going live. Any endpoint that accepts a POST works:
+  //   - GoHighLevel inbound webhook   (recommended - leads land in the CRM)
+  //   - Formspree:  https://formspree.io/f/xxxxxxxx
+  //   - Tally / Getform / your own serverless function
+  // Leave empty and the form will tell you it is not connected rather than
+  // silently dropping a signup on the floor.
+  var ENDPOINT = "";
+  // ---------------------------------------------------------------------------
+
+  var form = document.getElementById("f");
+  var btn = document.getElementById("go");
+  var status = document.getElementById("status");
+
+  var say = function (msg, isErr) {
+    status.textContent = msg;
+    status.className = isErr ? "status err" : "status";
+  };
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    var name = form.name.value.trim();
+    var email = form.email.value.trim();
+
+    if (!name) return say("Please add your name.", true);
+    // deliberately permissive: the server is the real validator
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      return say("That email does not look right.", true);
+    }
+    if (!ENDPOINT) {
+      return say("Form is not connected yet. Set ENDPOINT in index.html.", true);
+    }
+
+    btn.disabled = true;
+    say("Adding you…");
+
+    fetch(ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        source: "joinrealsingles.com",
+        list: "early-access",
+        ts: new Date().toISOString()
+      })
+    })
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        document.body.classList.add("sent");
+      })
+      .catch(function () {
+        btn.disabled = false;
+        say("Something went wrong. Please try again.", true);
+      });
+  });
+})();
+</script>
+</body>
+</html>
